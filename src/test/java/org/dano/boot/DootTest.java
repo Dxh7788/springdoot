@@ -6,6 +6,6 @@ package org.dano.boot;
 public class DootTest {
 
     public static void main(String[] args) {
-        new SpringDootApplication().run();
+        new ApoloApplication().run();
     }
 }
