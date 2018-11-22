@@ -7,6 +7,8 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.StandardEnvironment;
 
 /**
  * @author dongxiaohong on 2018/11/12 14:10
@@ -18,6 +20,10 @@ public class ApoloApplication {
         BeanDefinitionRegistry registry = null;
         ApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
 
+        //设置Environment,暂时不管系统env和系统properties
+        ConfigurableEnvironment environment = new StandardEnvironment();
+
+        ((AnnotationConfigServletWebServerApplicationContext) context).setEnvironment(environment);
         if (context instanceof BeanDefinitionRegistry) {
             registry =  (BeanDefinitionRegistry) context;
         }
