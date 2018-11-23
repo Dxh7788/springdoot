@@ -2,10 +2,13 @@ package org.dano.boot;
 
 import org.dano.boot.model.User;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.CachedIntrospectionResults;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 
 /**
  * @author dongxiaohong on
@@ -14,12 +17,19 @@ import java.beans.Introspector;
 public class IntrospectorTest {
 
     @Test
-    public void test01(){
+    public void beanInfo01(){
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(User.class);
             System.out.println(beanInfo);
         } catch (IntrospectionException e) {
             e.printStackTrace();
+        }
+    }
+    @Test
+    public void cachedIntrospectionResultsTest(){
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(User.class);
+        for (PropertyDescriptor propertyDescriptor:propertyDescriptors){
+            System.out.println(propertyDescriptor.getName()+",class:"+propertyDescriptor.getPropertyType());
         }
     }
 }
