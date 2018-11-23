@@ -4,32 +4,34 @@ package org.dano.boot.model;
  * @author dongxiaohong on
  * @date 2018/11/22 19:33
  */
-public class User {
+public class CopyUser {
     private String name;
     private String password;
-    private User user;
+    private CopyUser user;
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public CopyUser setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public CopyUser setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public User getUser() {
+    public CopyUser getUser() {
         return user;
     }
 
-    public User setUser(User user) {
+    public CopyUser setUser(CopyUser user) {
         this.user = user;
         return this;
     }
