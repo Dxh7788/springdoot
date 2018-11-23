@@ -6,7 +6,7 @@ package org.dano.boot.model;
  */
 public class User {
     private String name;
-    private String password;
+    private static String password;
     private User user;
 
     public String getName() {
@@ -21,8 +21,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static void setPassword(String pwd) {
+        password = pwd;
     }
 
     public User getUser() {
