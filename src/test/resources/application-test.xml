@@ -2,5 +2,6 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="nbService" class="org.dano.boot.service.NbService"/>
+    <bean id="nbService" class="org.dano.boot.service.NbService" depends-on="user"/>
+    <bean id="user" class="org.dano.boot.model.User"/>
 </beans>
