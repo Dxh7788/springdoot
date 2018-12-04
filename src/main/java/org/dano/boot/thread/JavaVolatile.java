@@ -1,5 +1,8 @@
 package org.dano.boot.thread;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,6 +19,12 @@ public class JavaVolatile {
     }
 
     public static void main(String[] args) {
+        ThreadMXBean mxBean = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] threadInfos = mxBean.dumpAllThreads(false,false);
+        for (ThreadInfo info:threadInfos){
+            System.out.println("["+info.getThreadId()+"]"+info.getThreadName());
+        }
+
         final JavaVolatile javaVolatile = new JavaVolatile();
         for (int i=0;i<10;i++){
             new Thread(){
@@ -27,9 +36,11 @@ public class JavaVolatile {
                 }
             }.start();
         }
-        /*while (Thread.activeCount()>1){
+        System.out.println(Thread.activeCount());
+        Thread.currentThread().getThreadGroup().list();
+        while (Thread.activeCount()>2){
             Thread.yield();
-        }*/
+        }
         System.out.println(javaVolatile.inc);
     }
 }
