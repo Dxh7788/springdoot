@@ -1,14 +1,17 @@
 package org.dano.boot.thread;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @author dongxiaohong
  * @date 2018/12/4 15:03
  */
 public class JavaVolatile {
 
-    public volatile int inc = 0;
 
-    public void inc(){
+    public volatile int inc ;
+
+    public synchronized void inc(){
         inc++;
     }
 
@@ -24,6 +27,9 @@ public class JavaVolatile {
                 }
             }.start();
         }
+        /*while (Thread.activeCount()>1){
+            Thread.yield();
+        }*/
         System.out.println(javaVolatile.inc);
     }
 }
