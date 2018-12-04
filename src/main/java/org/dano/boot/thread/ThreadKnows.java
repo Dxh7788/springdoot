@@ -1,4 +1,4 @@
-package org.dano.boot;
+package org.dano.boot.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,6 +31,22 @@ public class ThreadKnows {
         }
     }
 
+    static class BiaoThread implements Runnable{
+        /**
+         * 共享变量 bol
+         * */
+        volatile int count = 0;
+        @Override
+        public void run() {
+            count++;
+            System.out.println("这是执行的第"+count+"个线程");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * 顺序执行10个线程
      */
@@ -42,7 +58,18 @@ public class ThreadKnows {
         }
     }
 
+    /**
+     * volatile 的并发问题,最终的值依赖于它本身的值
+     * */
+    public static void threadConcurrentSafes(){
+        ExecutorService pool = Executors.newCachedThreadPool();
+        BiaoThread thread = new BiaoThread();
+        for (int i = 0; i!=10 ; i++){
+            new Thread(thread).start();
+        }
+    }
     public static void main(String[] args) {
-        sequenceExes();
+        //sequenceExes();
+        threadConcurrentSafes();
     }
 }
