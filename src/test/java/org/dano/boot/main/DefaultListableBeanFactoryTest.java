@@ -1,5 +1,6 @@
 package org.dano.boot.main;
 
+import org.dano.boot.annotation.Dests;
 import org.dano.boot.model.Processor;
 import org.dano.boot.service.CircleService;
 import org.junit.Test;
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.config.PropertyOverrideConfigurer;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigUtils;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.util.DefaultPropertiesPersister;
 
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.Properties;
 
 /**
@@ -54,7 +57,7 @@ public class DefaultListableBeanFactoryTest {
     public void autoWiredAnnotationBeanPostProcessorTest(){
         try {
             AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
-            processor.setAutowiredAnnotationType(AliasFor.class);
+            processor.setAutowiredAnnotationType(Dests.class);
 
             processor.postProcessPropertyValues(null, null, new Processor(), "processor");
         }catch (Exception e){
