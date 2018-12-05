@@ -47,13 +47,20 @@ public class DefaultListableBeanFactoryTest {
      * 为了测试searchWithGetSemantics是什么用途
      * 以AliasFor为例,它内部的两个方法属性,value和attribute只要有一个设置成功,另外一个如果不设置则自动设置为已经设置属性的值
      * 如果value='kl' 则attribute='kl',如果attribute='kl',则value='kl',但是只能同时设置唯一一个值.要么设置value,要么设置attribute,不能同时设置value和attribute
+     * 也可以同时设置,但是只能设置同一个值比如value='kl',attribute='kl'.这样才能成功
      * 这就是merge的作用
      * */
     @Test
     public void autoWiredAnnotationBeanPostProcessorTest(){
-        AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
-        processor.setAutowiredAnnotationType(AliasFor.class);
+        try {
+            AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
+            processor.setAutowiredAnnotationType(AliasFor.class);
 
-        processor.postProcessPropertyValues(null, null, new Processor(), "processor");
+            processor.postProcessPropertyValues(null, null, new Processor(), "processor");
+        }catch (Exception e){
+            //只是为了测试AutowiredAnnotationBeanPostProcessor,其中的获取bean逻辑因为没有BeanFactory,所以都当异常抛出,并且忽略
+            //ignore
+        }
+
     }
 }
