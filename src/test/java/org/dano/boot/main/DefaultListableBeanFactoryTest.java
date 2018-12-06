@@ -32,11 +32,12 @@ public class DefaultListableBeanFactoryTest {
         DefaultPropertiesPersister persister = new DefaultPropertiesPersister();
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties");
 
+        //配置properties文件解析流程
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         configurer.setEnvironment(new StandardEnvironment());
-        configurer.setPropertiesPersister(persister);
         configurer.setLocation(new InputStreamResource(stream));
         configurer.postProcessBeanFactory(factory);
+
         //把前置BeanPostProcessors处理掉
         String[] postProcessorNames = factory.getBeanNamesForType(BeanPostProcessor.class, true, false);
         for (String name:postProcessorNames){
