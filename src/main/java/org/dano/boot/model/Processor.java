@@ -10,9 +10,9 @@ import org.dano.boot.annotation.Dests;
  */
 public class Processor {
     @Dests(value = {
-            @Dest,
-            @Dest,
-            @Dest
+            @Dest(value = "123"),
+            @Dest(value = "456"),
+            @Dest(value = "789")
     })
     private String name;
     /*@AliasFor(attribute = "kl2",value = "kl2")

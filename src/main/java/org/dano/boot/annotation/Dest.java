@@ -12,4 +12,5 @@ import java.lang.annotation.*;
 @Documented
 @Repeatable(Dests.class)
 public @interface Dest {
+    String value() default "";
 }
