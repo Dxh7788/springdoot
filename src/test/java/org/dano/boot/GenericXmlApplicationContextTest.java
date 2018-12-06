@@ -12,6 +12,10 @@ public class GenericXmlApplicationContextTest {
 
     public static void main(String[] args) {
         ApplicationContext context = new GenericXmlApplicationContext("application-test.xml");
+
+        for (String beanName:context.getBeanDefinitionNames()){
+            System.out.println(beanName);
+        }
         NbService nbService = (NbService) context.getBean("nbService");
         nbService.vo();
     }

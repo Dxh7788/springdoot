@@ -2,6 +2,7 @@ package org.dano.boot.service;
 
 import org.dano.boot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,14 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class NbService {
 
-    @Autowired
-    private CircleService circleService;
+//    @Autowired
+//    private CircleService circleService;
+    @Value("${road.toy.name}")
+    private String name;
 
     public void vo(){
         System.out.println("....Vo Virgin!!!");
-        circleService.voCopy();
+        System.out.println(name);
+//        circleService.voCopy();
     }
-    public User getUser(String name,GeFactory geFactory){
-        return geFactory.getUser();
-    }
+//    public User getUser(String name,GeFactory geFactory){
+//        return geFactory.getUser();
+//    }
 }

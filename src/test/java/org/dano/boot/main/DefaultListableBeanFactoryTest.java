@@ -1,22 +1,21 @@
 package org.dano.boot.main;
 
-import org.dano.boot.annotation.Dests;
+import org.dano.boot.annotation.Destss;
 import org.dano.boot.model.Processor;
 import org.dano.boot.service.CircleService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.config.PropertyOverrideConfigurer;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigUtils;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.core.annotation.AliasFor;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.StandardEnvironment;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.util.DefaultPropertiesPersister;
 
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
-import java.util.Properties;
 
 /**
  * @author dongxiaohong
@@ -25,17 +24,18 @@ import java.util.Properties;
 public class DefaultListableBeanFactoryTest {
 
     @Test
-    public void boot() throws Exception{
+    public void boot() {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
         reader.loadBeanDefinitions("application-localTest.xml");
         AnnotationConfigUtils.registerAnnotationConfigProcessors(factory);
         DefaultPropertiesPersister persister = new DefaultPropertiesPersister();
-        Properties properties = new Properties();
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties");
-        persister.load(properties, stream);
-        PropertyOverrideConfigurer configurer = new PropertyOverrideConfigurer();
+
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setEnvironment(new StandardEnvironment());
         configurer.setPropertiesPersister(persister);
+        configurer.setLocation(new InputStreamResource(stream));
         configurer.postProcessBeanFactory(factory);
         //把前置BeanPostProcessors处理掉
         String[] postProcessorNames = factory.getBeanNamesForType(BeanPostProcessor.class, true, false);
@@ -57,7 +57,11 @@ public class DefaultListableBeanFactoryTest {
     public void autoWiredAnnotationBeanPostProcessorTest(){
         try {
             AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
-            processor.setAutowiredAnnotationType(Dests.class);
+            DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+            factory.registerBeanDefinition("processor",new RootBeanDefinition(Class.forName("org.dano.boot.model.Processor")));
+            factory.getBean("processor",Processor.class);
+            processor.setBeanFactory(factory);
+            processor.setAutowiredAnnotationType(Destss.class);
 
             processor.postProcessPropertyValues(null, null, new Processor(), "processor");
         }catch (Exception e){
