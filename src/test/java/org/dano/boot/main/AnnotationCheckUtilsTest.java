@@ -14,6 +14,11 @@ import java.lang.reflect.Method;
  * @date 2018/12/6 14:23
  */
 public class AnnotationCheckUtilsTest {
+
+    /**
+     * 注解的反射应当使用annotationType而不是getClass,否则获取方法时会获取到无用的方法,而且注解的方法都是不带参数的.
+     * 可直接调用moethod.invoke(annotation)来执行获取到结果
+     * */
     @Test
     public void annotationArrayTest() throws Exception{
         Class cls = new Processor().getClass();
