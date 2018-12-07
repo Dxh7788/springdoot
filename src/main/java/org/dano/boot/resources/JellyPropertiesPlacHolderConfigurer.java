@@ -7,14 +7,14 @@ import java.util.Properties;
  * @author dongxiaohong
  * @date 2018/12/7 09:47
  */
-public class JellyPropertiesPlacHolderConfigurar extends JellyPropertiesLoaderSupport{
+public class JellyPropertiesPlacHolderConfigurer extends JellyPropertiesLoaderSupport{
 
 
-    public JellyPropertiesPlacHolderConfigurar(String location) {
+    public JellyPropertiesPlacHolderConfigurer(String location) {
         super(location);
     }
 
-    public JellyPropertiesPlacHolderConfigurar() {
+    public JellyPropertiesPlacHolderConfigurer() {
         super();
     }
 
