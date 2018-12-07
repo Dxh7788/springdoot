@@ -34,7 +34,8 @@ public class DefaultListableBeanFactoryTest {
 
         //配置properties文件解析流程
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
-        configurer.setEnvironment(new StandardEnvironment());
+        StandardEnvironment environment = new StandardEnvironment();
+        configurer.setEnvironment(environment);
         configurer.setLocation(new InputStreamResource(stream));
         configurer.postProcessBeanFactory(factory);
 
