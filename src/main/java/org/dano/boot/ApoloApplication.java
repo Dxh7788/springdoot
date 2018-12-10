@@ -2,6 +2,9 @@ package org.dano.boot;
 
 import org.dano.boot.annotation.SpringBootApplication;
 import org.dano.boot.context.AnnotationConfigServletWebServerApplicationContext;
+import org.dano.boot.listener.GenericJelly;
+import org.dano.boot.listener.JellyEvent;
+import org.dano.boot.model.User;
 import org.dano.boot.service.NbService;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
@@ -36,6 +39,10 @@ public class ApoloApplication {
         annotatedReader.register(new Class[]{ApoloApplication.class});
         ((AnnotationConfigServletWebServerApplicationContext) context).refresh();
         context.getBean(NbService.class).vo();
+        User user =new User();
+        //context.publishEvent(new JellyEvent(user));
+        context.publishEvent(new GenericJelly());
+        System.out.println("123");
     }
 
     public void po(){
