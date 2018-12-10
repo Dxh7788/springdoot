@@ -40,6 +40,7 @@ public class ApoloApplication {
         ((AnnotationConfigServletWebServerApplicationContext) context).refresh();
         context.getBean(NbService.class).vo();
         User user =new User();
+        user.setName("Jelly Test....");
         //context.publishEvent(new JellyEvent(user));
         context.publishEvent(new GenericJelly());
         System.out.println("123");
